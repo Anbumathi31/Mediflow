@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mediflow.dto.AppointmentRequest;
 import com.mediflow.entity.Appointment;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.*;
 
 
@@ -67,5 +69,46 @@ public class AppointmentService {
                         "Appointment not found with id " + id));
     }
 
+    public Appointment updateAppointment(
+            Long id,
+            AppointmentRequest request) {
 
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() ->
+                        new AppointmentNotFoundException(
+                                "Appointment not found with id " + id));
+
+        Patient patient = patientRepository.findById(
+                        request.getPatientId())
+                .orElseThrow(() ->
+                        new PatientNotFoundException(
+                                "Patient not found with id "
+                                        + request.getPatientId()));
+
+        Doctor doctor = doctorRepository.findById(
+                        request.getDoctorId())
+                .orElseThrow(() ->
+                        new DoctorNotFoundException(
+                                "Doctor not found with id "
+                                        + request.getDoctorId()));
+
+        appointment.setAppointmentDate(
+                request.getAppointmentDate());
+
+        appointment.setPatient(patient);
+
+        appointment.setDoctor(doctor);
+
+        return appointmentRepository.save(appointment);
+    }
+
+    public void deleteAppointment(Long id) {
+
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() ->
+                        new AppointmentNotFoundException(
+                                "Appointment not found with id " + id));
+
+        appointmentRepository.delete(appointment);
+    }
 }
