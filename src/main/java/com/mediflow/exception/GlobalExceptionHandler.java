@@ -25,4 +25,13 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(AppointmentNotFoundException.class)
+    public ResponseEntity<String> handleAppointmentNotFound(
+            AppointmentNotFoundException ex) {
+
+        return new ResponseEntity<>(
+                ex.getMessage(),
+                HttpStatus.NOT_FOUND);
+    }
 }

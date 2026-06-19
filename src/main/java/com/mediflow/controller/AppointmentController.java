@@ -6,6 +6,8 @@ import com.mediflow.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentController {
@@ -18,5 +20,15 @@ public class AppointmentController {
             @RequestBody AppointmentRequest request) {
 
         return appointmentService.createAppointment(request);
+    }
+
+    @GetMapping
+    public List<Appointment> getAllAppointments() {
+        return appointmentService.getAllAppointments();
+    }
+
+    @GetMapping("/{id}")
+    public Appointment getAppointmentById(@PathVariable Long id) {
+        return appointmentService.getAppointmentById(id);
     }
 }

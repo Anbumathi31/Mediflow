@@ -2,6 +2,7 @@ package com.mediflow.service;
 
 import com.mediflow.entity.Doctor;
 import com.mediflow.entity.Patient;
+import com.mediflow.exception.AppointmentNotFoundException;
 import com.mediflow.exception.DoctorNotFoundException;
 import com.mediflow.exception.PatientNotFoundException;
 import com.mediflow.repository.AppointmentRepository;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mediflow.dto.AppointmentRequest;
 import com.mediflow.entity.Appointment;
+import java.util.*;
+
 
 
 @Service
@@ -42,6 +45,27 @@ public class AppointmentService {
                                 "Doctor not found with id "
                                         + request.getDoctorId()));
 
-        return null;
+        Appointment appointment = new Appointment();
+
+        appointment.setAppointmentDate(
+                request.getAppointmentDate());
+
+        appointment.setPatient(patient);
+
+        appointment.setDoctor(doctor);
+
+        return appointmentRepository.save(appointment);
     }
+
+    public List<Appointment> getAllAppointments() {
+        return appointmentRepository.findAll();
+    }
+
+    public Appointment getAppointmentById(Long id){
+        return appointmentRepository.findById(id)
+                .orElseThrow(() -> new AppointmentNotFoundException(
+                        "Appointment not found with id " + id));
+    }
+
+
 }
