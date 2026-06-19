@@ -6,9 +6,15 @@ import com.mediflow.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/patients")
-public class PatientController {
+@Tag(
+        name = "Patient APIs",
+        description = "Operations related to patient management"
+)
+public class PatientController{
 
     @Autowired
     private PatientService patientService;
