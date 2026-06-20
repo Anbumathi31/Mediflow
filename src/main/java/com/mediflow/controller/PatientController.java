@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/patients")
@@ -20,7 +21,9 @@ public class PatientController{
     private PatientService patientService;
 
     @PostMapping
-    public Patient addPatient(@RequestBody Patient patient) {
+    public Patient savePatient(
+            @Valid @RequestBody Patient patient) {
+
         return patientService.savePatient(patient);
     }
 

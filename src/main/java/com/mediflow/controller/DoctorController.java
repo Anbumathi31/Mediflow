@@ -3,6 +3,7 @@ package com.mediflow.controller;
 import com.mediflow.entity.Doctor;
 import java.util.*;
 import com.mediflow.service.DoctorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ public class DoctorController {
     private DoctorService doctorService;
 
     @PostMapping
-    public Doctor addDoctor(@RequestBody Doctor doctor) {
+    public Doctor addDoctor(@RequestBody @Valid Doctor doctor) {
         return doctorService.saveDoctor(doctor);
     }
 
