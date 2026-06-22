@@ -5,6 +5,7 @@ import com.mediflow.entity.Appointment;
 import com.mediflow.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.mediflow.dto.AppointmentStatusRequest;
 
 import java.util.List;
 
@@ -45,5 +46,15 @@ public class AppointmentController {
             @PathVariable Long id) {
 
         appointmentService.deleteAppointment(id);
+    }
+
+    @PutMapping("/{id}/status")
+    public Appointment updateStatus(
+            @PathVariable Long id,
+            @RequestBody AppointmentStatusRequest request) {
+
+        return appointmentService.updateStatus(
+                id,
+                request.getStatus());
     }
 }

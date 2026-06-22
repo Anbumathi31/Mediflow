@@ -52,9 +52,16 @@ public class AppointmentService {
         appointment.setAppointmentDate(
                 request.getAppointmentDate());
 
+        appointment.setStatus("BOOKED");
+
         appointment.setPatient(patient);
 
         appointment.setDoctor(doctor);
+
+        appointment.setSymptoms(
+                request.getSymptoms());
+        appointment.setStatus("BOOKED");
+
 
         return appointmentRepository.save(appointment);
     }
@@ -99,6 +106,9 @@ public class AppointmentService {
 
         appointment.setDoctor(doctor);
 
+        appointment.setSymptoms(
+                request.getSymptoms());
+
         return appointmentRepository.save(appointment);
     }
 
@@ -110,5 +120,19 @@ public class AppointmentService {
                                 "Appointment not found with id " + id));
 
         appointmentRepository.delete(appointment);
+    }
+
+    public Appointment updateStatus(
+            Long id,
+            String status) {
+
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() ->
+                        new AppointmentNotFoundException(
+                                "Appointment not found with id " + id));
+
+        appointment.setStatus(status);
+
+        return appointmentRepository.save(appointment);
     }
 }

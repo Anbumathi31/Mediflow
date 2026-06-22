@@ -8,4 +8,5 @@ public class AppointmentRequest {
     private String appointmentDate;
     private Long patientId;
     private Long doctorId;
+    private String symptoms;
 }

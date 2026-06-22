@@ -18,4 +18,8 @@ public class Appointment {
 
     @ManyToOne
     private Doctor doctor;
+
+    private String symptoms;
+
+    private String status;
 }
