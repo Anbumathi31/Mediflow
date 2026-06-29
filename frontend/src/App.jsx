@@ -1,7 +1,8 @@
+import DoctorPage from "./pages/DoctorPage";
 import PatientPage from "./pages/PatientPage";
 
 function App() {
-  return <PatientPage />;
+  return <DoctorPage />;
 }
 
 export default App;
